@@ -15,9 +15,10 @@ celltype_palette <- c('T Cells' = '#0351A8',
                       'Smooth Muscle Cells' = '#E8BCCF',
                       'Intestinal Epithelial Cells' = '#64605F',
                       'Enteric Glial Cells' = '#B2AD9A')
-mat = read.csv('gut_3_cpdb_chord_melt.csv',row.names = 1)
+mat = read.csv('gut_3_cpdb_chord.csv',row.names = 1)
 mat <- as.matrix(mat)
-# mat[mat<5] = 0
+mat[mat<5] = 0
+colnames(mat) = row.names(mat)
 panel.fun <- function(x, y) {
   xlim <- get.cell.meta.data("xlim")
   ylim <- get.cell.meta.data("ylim")
@@ -30,16 +31,15 @@ panel.fun <- function(x, y) {
 circos.par(cell.padding = c(0,0,0,0), gap.degree = 2, start.degree = 90, points.overflow.warning = FALSE)
 par(mar=c(5,6,4,1)+.1)
 
-chordDiagram(mat, annotationTrack = "grid",self.link = 1, preAllocateTracks = 1, grid.col = celltype_palette, transparency = 0.3,keep.diagonal =FALSE, symmetric = FALSE)
+chordDiagram(mat, annotationTrack = "grid",self.link = 1, preAllocateTracks = 1, scale = TRUE,grid.col = celltype_palette, transparency = 0.3,keep.diagonal =FALSE, symmetric = TRUE)
 circos.trackPlotRegion(track.index = 1, panel.fun = panel.fun, bg.border = NA)
-
-
-dev.copy(jpeg,'gut_3_chord.png', width=14, height=14, units="in", res=500)
+dev.copy(jpeg,'vis/gut_3_chord.png', width=14, height=14, units="in", res=500)
 dev.off()
 
 mat = read.csv('gut_4_cpdb_chord.csv',row.names = 1)
 mat <- as.matrix(mat)
 mat[mat<5] = 0
+colnames(mat) = row.names(mat)
 panel.fun <- function(x, y) {
   xlim <- get.cell.meta.data("xlim")
   ylim <- get.cell.meta.data("ylim")
@@ -52,7 +52,7 @@ panel.fun <- function(x, y) {
 circos.par(cell.padding = c(0,0,0,0), gap.degree = 2, start.degree = 90, points.overflow.warning = FALSE)
 par(mar=c(5,6,4,1)+.1)
 
-chordDiagram(mat, annotationTrack = "grid",self.link = 1, preAllocateTracks = 1, grid.col = celltype_palette, transparency = 0.3,keep.diagonal =FALSE, symmetric = FALSE)
+chordDiagram(mat, annotationTrack = "grid",self.link = 1, preAllocateTracks = 1,scale = TRUE, grid.col = celltype_palette, transparency = 0.3,keep.diagonal =FALSE, symmetric = FALSE)
 circos.trackPlotRegion(track.index = 1, panel.fun = panel.fun, bg.border = NA)
 
 
